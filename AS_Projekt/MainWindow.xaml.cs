@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AS_Projekt.db;
+using as_projekt.data;
 
 namespace AS_Projekt
 {
@@ -22,6 +24,15 @@ namespace AS_Projekt
     public MainWindow()
     {
       InitializeComponent();
+        /*
+        Database db = new Database();
+
+        Department department = new Department(1, "Woot Inc");
+        Employee employee = new Employee("Tobi", "woot", EmployeeGender.Male, department);
+
+        db.insertEmployee(employee);
+        db.getAllEmployees();
+        */
     }
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
