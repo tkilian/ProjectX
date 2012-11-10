@@ -5,7 +5,7 @@ using System.Text;
 
 namespace as_projekt.data
 {
-  public enum EmployeeGender { Male, Female }
+  public enum EmployeeGender { Male=1, Female=2 }
   
   public class Employee
   {
