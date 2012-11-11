@@ -6,7 +6,7 @@
     <TabControl Name="tabControl1">
       <TabItem Header="Employees" Name="employees">
         <Grid>
-          <ListBox HorizontalAlignment="Left" Margin="6,6,0,6" Name="listBox1" Width="271" />
+         <ListBox HorizontalAlignment="Left" Margin="6,6,0,0" Name="listBox1" Width="271" Height="378"/>
           <GroupBox Header="Add Employee" Height="175" Margin="283,6,6,0" Name="groupBox1" VerticalAlignment="Top">
             <Grid ClipToBounds="True">
               <Label Content="Surname" Height="28" HorizontalAlignment="Left" Margin="6,6,0,0" Name="label1" VerticalAlignment="Top" />
@@ -25,8 +25,8 @@
       </TabItem>
       <TabItem Header="Departments" Name="departments">
         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-          <ListBox HorizontalAlignment="Left" Margin="10,0,0,6" Name="listBox2" Width="271" Height="378" />
-          <GroupBox Header="Add Department" Height="175" Margin="283,0,6,0" Name="groupBox2" VerticalAlignment="Top">
+          <ListBox HorizontalAlignment="Left" Margin="6,6,0,0" Name="listBox2" Width="271" Height="378" />
+          <GroupBox Header="Add Department" Height="175" Margin="283,6,6,0" Name="groupBox2" VerticalAlignment="Top">
             <Grid ClipToBounds="True">
               <Label Content="Name" Height="28" HorizontalAlignment="Left" Margin="6,6,0,0" Name="tbName" VerticalAlignment="Top" />
               <TextBox Height="23" Margin="80,8,6,0" Name="textBox1" VerticalAlignment="Top" Width="181" />
