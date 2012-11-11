@@ -24,15 +24,20 @@ namespace AS_Projekt
     public MainWindow()
     {
       InitializeComponent();
-        /*
-        Database db = new Database();
+        
+        ////////////////////////////////////////////
+        /// Database Usage 
+        ////////////////////////////////////////////
 
-        Department department = new Department(1, "Woot Inc");
-        Employee employee = new Employee("Tobi", "woot", EmployeeGender.Male, department);
+        // Database db = new Database();
 
-        db.insertEmployee(employee);
-        db.getAllEmployees();
-        */
+        // Employee employee = new Employee("Tobi", "woot", EmployeeGender.Male, department);
+        // db.insertEmployee(employee);
+        // List <Employee> employees = db.getAllEmployees();
+
+        // Department department = new Department(1, "Woot Inc");
+        // db.insertDepartment(department);
+        // List<Department> departments = db.getAllDepartments();
     }
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
