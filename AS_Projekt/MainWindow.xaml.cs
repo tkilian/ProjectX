@@ -31,13 +31,17 @@ namespace AS_Projekt
 
         // Database db = new Database();
 
-        // Employee employee = new Employee("Tobi", "woot", EmployeeGender.Male, department);
-        // db.insertEmployee(employee);
-        // List <Employee> employees = db.getAllEmployees();
-
         // Department department = new Department(1, "Woot Inc");
         // db.insertDepartment(department);
+        // db.deleteDepartmentById(1);
+        // db.updateDepartmentById(1);
         // List<Department> departments = db.getAllDepartments();
+
+        // Employee employee = new Employee(2, "WAT WAT", "WAT", EmployeeGender.Male, department);
+        // db.insertEmployee(employee);
+        // db.deleteEmployeeById(1);
+        // db.updateEmployee(employee);
+        // List <Employee> employees = db.getAllEmployees();
     }
 
     private void Window_Loaded(object sender, RoutedEventArgs e)

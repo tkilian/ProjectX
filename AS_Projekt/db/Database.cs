@@ -90,6 +90,68 @@ namespace AS_Projekt.db
             return true;
         }
 
+        public bool updateEmployee(Employee employee)
+        {
+            if (employee.Id == 0) throw new ArgumentException(); 
+
+            SQLiteConnection connection = DbConnection;
+
+            try
+            {
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand(connection);
+
+                command.CommandText = "UPDATE `employees` SET firstname = @firstname, lastname = @lastname, gender = @gender, fk_department_nr = @department WHERE id = @id";
+                command.Prepare();
+
+                command.Parameters.AddWithValue("@firstname", employee.Firstname);
+                command.Parameters.AddWithValue("@lastname", employee.Lastname);
+                command.Parameters.AddWithValue("@gender", employee.Gender);
+                command.Parameters.AddWithValue("@department", employee.Department.Id);
+                command.Parameters.AddWithValue("@id", employee.Id);
+
+                command.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return true;
+        }
+
+        public bool deleteEmployeeById(int id)
+        {
+            SQLiteConnection connection = DbConnection;
+
+            try
+            {
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand(connection);
+
+                command.CommandText = "DELETE FROM `employees` WHERE id = @id";
+                command.Prepare();
+
+                command.Parameters.AddWithValue("@id", id);
+
+                command.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return true;
+        }
+
         public Employee getEmployeeById(int id)
         {
             SQLiteConnection connection = DbConnection;
@@ -149,7 +211,7 @@ namespace AS_Projekt.db
 
                 connection.Open();
 
-                command.CommandText = "SELECT e.*, d.* FROM employees e LEFT OUTER JOIN departments d ON e.fk_department_nr = d.id";
+                command.CommandText = "SELECT e.*, d.* FROM `employees` e LEFT OUTER JOIN departments d ON e.fk_department_nr = d.id";
 
                 reader = command.ExecuteReader();
 
@@ -193,6 +255,65 @@ namespace AS_Projekt.db
                 command.Prepare();
 
                 command.Parameters.AddWithValue("@name", department.Name);
+
+                command.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return true;
+        }
+
+        public bool updateDepartment(Department department)
+        {
+            if (department.Id == 0) throw new ArgumentException(); 
+
+            SQLiteConnection connection = DbConnection;
+
+            try
+            {
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand(connection);
+
+                command.CommandText = "UPDATE `departments` SET name = @name WHERE id = @id";
+                command.Prepare();
+
+                command.Parameters.AddWithValue("@name", department.Name);
+                command.Parameters.AddWithValue("@id", department.Id);
+
+                command.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return true;
+        }
+
+        public bool deleteDepartmentById(int id)
+        {
+            SQLiteConnection connection = DbConnection;
+
+            try
+            {
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand(connection);
+
+                command.CommandText = "DELETE FROM `departments` WHERE id = @id";
+                command.Prepare();
+
+                command.Parameters.AddWithValue("@id", id);
 
                 command.ExecuteNonQuery();
             }
@@ -254,6 +375,7 @@ namespace AS_Projekt.db
 
             return department;
         }
+
 
         public List<Department> getAllDepartments()
         {
