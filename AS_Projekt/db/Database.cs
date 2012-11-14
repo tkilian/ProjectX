@@ -7,7 +7,7 @@ using AS_Projekt.helper;
 
 namespace AS_Projekt.db
 {
-    public class Database
+    public class Database : AS_Projekt.interfaces.IStore
     {
         private String dataSourceName = "as_projekt.db";
         private String connectionString = "";

@@ -8,7 +8,7 @@ using as_projekt.data;
 
 namespace AS_Projekt.xml
 {
-    class xml
+    class xml : AS_Projekt.interfaces.IStore
     {
 
         XmlDocument employeesDoc = new XmlDocument();
