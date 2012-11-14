@@ -221,8 +221,18 @@ namespace AS_Projekt.db
                 {
                     while (reader.Read())
                     {
-                        employees.Add(Helper.CreateEmployee(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(3), reader.GetInt32(4), reader.GetString(6)));
+                        String department_name = null;
+                        if (reader[6] == DBNull.Value)
+                            department_name = "";
+                        else
+                            department_name = reader.GetString(6);
+                        employees.Add(Helper.CreateEmployee(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(3), reader.GetInt32(4), department_name));
                     }
+                }
+                catch (Exception e2)
+                {
+                    Console.WriteLine("exception thrown");
+                    throw e2;
                 }
                 finally
                 {

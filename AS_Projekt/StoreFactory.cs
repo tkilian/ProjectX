@@ -14,10 +14,10 @@ namespace AS_Projekt
         {
             switch (storeType)
             {
-                case "MSSQL":
+                case "SQL":
                     return new Database();
                 case "XML":
-                    return new AS_Projekt.xml.xml();
+                    return new AS_Projekt.xml.xmlStorage();
                 default:
                     return null;
             }
