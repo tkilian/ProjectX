@@ -76,6 +76,8 @@ namespace AS_Projekt.db
                 command.Parameters.AddWithValue("@gender", employee.Gender);
                 command.Parameters.AddWithValue("@department", employee.Department.Id);
 
+                employee.Id = 500;
+
                 command.ExecuteNonQuery();
             }
             catch (Exception e)

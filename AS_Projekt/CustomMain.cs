@@ -15,8 +15,6 @@ namespace AS_Projekt
     public static void Main()
     {
       //DB oder XML
-
-
       //Startet Konsolenanwendung
       RunConsole();
       //Startet WPF-Dreck
@@ -26,10 +24,8 @@ namespace AS_Projekt
 
     private static void RunConsole()
     {
-      ConsoleManager.ConsoleManage.Show();
-      Console.WriteLine("HALLO");
-      System.Diagnostics.Trace.WriteLine("HALLO");
-      Console.ReadLine();   
+        ShellOutput sh = new ShellOutput();
+         
     }
 
     private static void RunWPF()

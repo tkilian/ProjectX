@@ -9,11 +9,11 @@ namespace as_projekt.data
   
   public class Employee
   {
-    public int Id { get; private set; }
-    public String Firstname { get; private set; }
-    public String Lastname { get; private set; }
-    public EmployeeGender Gender { get; private set; }
-    public Department Department { get; private set; }
+    public int Id { get; set; }
+    public String Firstname { get; set; }
+    public String Lastname { get; set; }
+    public EmployeeGender Gender { get; set; }
+    public Department Department { get; set; }
 
     public Employee(int id, String firstname, String lastname, EmployeeGender gender, Department department)
     {

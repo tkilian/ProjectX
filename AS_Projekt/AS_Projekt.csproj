@@ -82,6 +82,7 @@
     <Compile Include="interfaces\IStore.cs" />
     <Compile Include="services\Bll.cs" />
     <Compile Include="ShellOutput.cs" />
+    <Compile Include="StoreFactory.cs" />
     <Compile Include="xml\xml.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
