@@ -275,6 +275,12 @@ namespace AS_Projekt.db
                 command.Parameters.AddWithValue("@name", department.Name);
 
                 command.ExecuteNonQuery();
+
+                // update the new id
+                command.CommandText = @"SELECT last_insert_rowid()";
+                SQLiteDataReader reader = command.ExecuteReader();
+                reader.Read();
+                department.setId(reader.GetInt32(0));
             }
             catch (Exception e)
             {
