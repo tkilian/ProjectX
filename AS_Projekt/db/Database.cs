@@ -42,12 +42,12 @@ namespace AS_Projekt.db
                 dbConnection.Open();
 
                 SQLiteCommand command = new SQLiteCommand(dbConnection);
-                command.CommandText = "CREATE TABLE IF NOT EXISTS `employees` (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT" +
-                    ", firstname VARCHAR(255) NOT NULL, lastname VARCHAR(255) NOT NULL, gender INTEGER NOT NULL, fk_department_nr INTEGER NOT NULL)";
+                command.CommandText = "CREATE TABLE IF NOT EXISTS `departments` (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name VARCHAR(255) NOT NULL)";
                 command.ExecuteNonQuery();
 
-                command.CommandText = "CREATE TABLE IF NOT EXISTS `departments` (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name VARCHAR(255) NOT NULL)";
-                
+                command.CommandText = "CREATE TABLE IF NOT EXISTS `employees` (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT" +
+                    ", firstname VARCHAR(255) NOT NULL, lastname VARCHAR(255) NOT NULL, gender INTEGER NOT NULL, fk_department_nr INTEGER NOT NULL" +
+                    ", FOREIGN KEY(fk_department_nr) REFERENCES departments(id) ON DELETE SET NULL)";
                 command.ExecuteNonQuery();
             }
             catch (Exception e)
