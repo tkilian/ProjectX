@@ -72,7 +72,7 @@ namespace AS_Projekt
 
 
                 foreach (Employee d_temp in listEmpl)
-                    lbEmployees.Items.Add("ID: " + d_temp.Id + " Lastname: " + d_temp.Lastname + " Firstname: " + d_temp.Firstname + " Department: " + d_temp.Department);
+                    lbEmployees.Items.Add(d_temp.Lastname + ", " + d_temp.Firstname + " \n   Gender: " + (d_temp.Gender == (EmployeeGender)1 ? "male" : "female" ) + " \n   Department: " + d_temp.Department + " \n   ID: " + d_temp.Id);
             }
             catch (Exception e)
             {
