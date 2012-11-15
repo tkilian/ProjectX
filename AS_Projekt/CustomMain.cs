@@ -23,11 +23,7 @@ namespace AS_Projekt
       
       //DB oder XML
       //Startet Konsolenanwendung
-<<<<<<< HEAD
-      RunConsole();
-=======
       RunConsole(service);
->>>>>>> ff99980ded717b161bfa762c36883b162c2589dd
       //Startet WPF-Dreck
       //RunWPF();
          
