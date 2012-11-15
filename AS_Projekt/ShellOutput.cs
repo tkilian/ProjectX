@@ -39,7 +39,6 @@ namespace AS_Projekt
                 string selectionString = Console.ReadLine();
                 //try to parse string to int
                 bool success = int.TryParse(selectionString, out selectionInt);
-
                 switch (selectionInt)
                 {
                     case 1:
@@ -49,6 +48,7 @@ namespace AS_Projekt
                         break;
                     case 2:
                         Console.WriteLine("You selected " + selectionString);
+                        Console.Clear();
                         GetDepByID();
                         break;
                     case 3:
@@ -86,10 +86,10 @@ namespace AS_Projekt
                         System.Threading.Thread.Sleep(1000);
                         break;
                     default:
-                        Console.WriteLine("Invalid selection. Please select 1, 2, 3....");
+                        Console.WriteLine("Invalid selection. Please select 1, 2, 3, ..., 9");
                         break;
                 }
-            } while (selectionInt != 5);
+            } while (selectionInt != 9);
         }
 
         private void ShowAllDep()
@@ -98,6 +98,10 @@ namespace AS_Projekt
 
             foreach (Department d_temp in listDeps)
                 Console.WriteLine("ID: " + d_temp.Id + " Name: " + d_temp.Name);
+
+            Console.WriteLine("Press Enter to go back to mainmenu");
+            Console.ReadLine();
+            Console.Clear();
         }
 
         private void ShowAllEmp()
@@ -106,6 +110,10 @@ namespace AS_Projekt
 
             foreach (Employee d_temp in listEmpl)
                 Console.WriteLine("ID: " + d_temp.Id + " Lastname: " + d_temp.Lastname + " Firstname: " +d_temp.Firstname + " Department: "  + d_temp.Department);
+            
+            Console.WriteLine("Press Enter to go back to mainmenu");
+            Console.ReadLine();
+            Console.Clear();
         }// end InitSelection
 
         private void DelDep()
@@ -121,6 +129,9 @@ namespace AS_Projekt
             bool successDepID = int.TryParse(selDepID, out intselID);          
             store.deleteDepartmentById(intselID);
             Console.WriteLine("Department deleted");
+            Console.WriteLine("Press Enter to go back to mainmenu");
+            Console.ReadLine();
+            Console.Clear();
         }
 
         private void DelEmp()
@@ -135,13 +146,15 @@ namespace AS_Projekt
             bool successDepID = int.TryParse(selEmpID, out intselID);
             store.deleteEmployeeById(intselID);
             Console.WriteLine("Employee deleted");
+            Console.WriteLine("Press Enter to go back to mainmenu");
+            Console.ReadLine();
+            Console.Clear();
         } 
 
         public void GetEmplByID()
         {
             int selEmplID;
             Console.WriteLine("Input ID.");
-            Console.ReadLine();
             string selectionEmplIDString = Console.ReadLine();
             //try to parse string to int
             bool successEmplID = int.TryParse(selectionEmplIDString, out selEmplID);
@@ -149,7 +162,11 @@ namespace AS_Projekt
             if( d_temp != null )
                 Console.WriteLine(d_temp.ToString());
             else
-                Console.WriteLine("Department not found!");
+                Console.WriteLine("Employee not found!");
+            
+            Console.WriteLine("Press Enter to go back to mainmenu");
+            Console.ReadLine();
+            Console.Clear();
             
         }
 
@@ -161,6 +178,10 @@ namespace AS_Projekt
             //try to parse string to int
             bool successEmplID = int.TryParse(selectionEmplIDString, out selDepID);
             store.getDepartmentById(selDepID);
+            
+            Console.WriteLine("Press Enter to go back to mainmenu");
+            Console.ReadLine();
+            Console.Clear();
             
         }
 
@@ -227,6 +248,10 @@ namespace AS_Projekt
             Employee emp = new Employee(0, firstname, lastname, (EmployeeGender)selectionIntGender, result);
             store.insertEmployee(emp);
             Console.WriteLine("Employee insertet");
+            
+            Console.WriteLine("Press Enter to go back to mainmenu");
+            Console.ReadLine();
+            Console.Clear();
         }//Ende InsertEmpl
 
         public void InsertDep()
@@ -236,6 +261,10 @@ namespace AS_Projekt
             Department dep = new Department(depname);
             store.insertDepartment(dep);
             Console.WriteLine("Department inserted");
+
+            Console.WriteLine("Press Enter to go back to mainmenu");
+            Console.ReadLine();
+            Console.Clear();
         }
     }
 }

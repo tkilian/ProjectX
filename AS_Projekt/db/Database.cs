@@ -231,7 +231,6 @@ namespace AS_Projekt.db
                 }
                 catch (Exception e2)
                 {
-                    Console.WriteLine("exception thrown");
                     throw e2;
                 }
                 finally
