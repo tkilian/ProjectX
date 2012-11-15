@@ -135,6 +135,7 @@ namespace AS_Projekt
             {
                 Console.WriteLine("Error, please enter a valid id");
                 DelDep();
+                return;
             }
 
             int intselID;
@@ -158,6 +159,7 @@ namespace AS_Projekt
             {
                 Console.WriteLine("Error, please enter a valid id");
                 DelEmp();
+                return;
             }
             
             int intselID;
@@ -179,6 +181,7 @@ namespace AS_Projekt
             {
                 Console.WriteLine("Error, please enter a valid id");
                 GetDepByID();
+                return;
             }
             
             //try to parse string to int
@@ -205,6 +208,7 @@ namespace AS_Projekt
             {
                 Console.WriteLine("Error, please enter a valid id");
                 GetDepByID();
+                return;
             }
 
             //try to parse string to int
@@ -231,6 +235,7 @@ namespace AS_Projekt
             {
                 Console.WriteLine("Error, please enter a valid firstname");
                 InsertEmpl();
+                return;
             }
 
             bool sacksession = true;
@@ -303,12 +308,26 @@ namespace AS_Projekt
             }
             else
             {
-                int selDepID;
-                Console.WriteLine("Input ID.");
-                string selectionEmplIDString = Console.ReadLine();
-                //try to parse string to int
-                bool successEmplID = int.TryParse(selectionEmplIDString, out selDepID);
-                result = service.getDepartment(selDepID);                
+            	int selDepID;
+				sacksession = true;
+            	
+            	while (sacksession)
+            	{
+	                Console.WriteLine("Input ID.");
+    	            string selectionEmplIDString = Console.ReadLine();
+    	            //try to parse string to int
+    	            bool successEmplID = int.TryParse(selectionEmplIDString, out selDepID);
+    	            result = service.getDepartment(selDepID); 
+    
+    	            if (result == null)
+                	{
+                	    Console.WriteLine("Error, please enter a valid id");
+                	}
+                	else
+                	{
+                	    sacksession = false;
+               		}
+            	}              
             }
             
             Employee emp = new Employee(0, firstname, lastname, (EmployeeGender)selectionIntGender, result);
@@ -327,6 +346,7 @@ namespace AS_Projekt
             {
                 Console.WriteLine("Please enter a valid department name");
                 InsertDep();
+                return;
             }
             Department dep = new Department(depname);
             service.insertDepartment(dep);
