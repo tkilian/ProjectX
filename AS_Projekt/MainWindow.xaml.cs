@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,6 +21,7 @@ namespace AS_Projekt
         public MainWindow()
         {
             InitializeComponent();
+            store = StoreFactory.CreateStore("XML");
 
             ////////////////////////////////////////////
             /// Database Usage 
@@ -44,18 +44,52 @@ namespace AS_Projekt
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            List<Department> dept = bll.getDepartments();
-
-            lbEmployees.ItemsSource = dept;
+            this.loadList();
         }
 
         private void btnSaveEmployee_Click(object sender, RoutedEventArgs e)
         {
-            /*
-             , bll.getDepartmentById(cbDepartment.SelectedIndex)
-             */
-            Employee employee = new Employee(tbFirstname, tbSurname, (EmployeeGender)rbGenderMale);
-            bll.insertEmployee(employee)
+            int gender = 1;
+            if (rbGenderFemale.IsChecked == true)
+            {
+                gender = 0;
+            }
+            Console.WriteLine(rbGenderFemale.IsChecked + " " + rbGenderMale.IsChecked);
+            Department result = new Department(Convert.ToString(cbDepartment.SelectedIndex));
+            Employee emp = new Employee(0, tbFirstname.Text, tbSurname.Text, (EmployeeGender)gender, result);
+            store.insertEmployee(emp);
+
+            this.loadList();
+        }
+
+        private void btnSaveDepartment_Click(object sender, RoutedEventArgs e)
+        {
+            Department dep = new Department(tbDepartment.Text);
+            store.insertDepartment(dep);
+
+            this.loadList();
+        }
+
+        private void loadList()
+        {
+            try
+            {
+                lbDepartments.Items.Clear();
+                List<Department> listDeps = store.getAllDepartments();
+                lbDepartments.ItemsSource = listDeps;
+
+                lbEmployees.Items.Clear();
+                List<Employee> listEmpl = store.getAllEmployees();
+
+
+                foreach (Employee d_temp in listEmpl)
+                    lbEmployees.Items.Add("ID: " + d_temp.Id + " Lastname: " + d_temp.Lastname + " Firstname: " + d_temp.Firstname + " Department: " + d_temp.Department);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
         }
     }
 }

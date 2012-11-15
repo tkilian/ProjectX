@@ -247,7 +247,7 @@ namespace AS_Projekt
 
             Employee emp = new Employee(0, firstname, lastname, (EmployeeGender)selectionIntGender, result);
             store.insertEmployee(emp);
-            Console.WriteLine("Employee insertet");
+            Console.WriteLine("Employee inserted");
             
             Console.WriteLine("Press Enter to go back to mainmenu");
             Console.ReadLine();
