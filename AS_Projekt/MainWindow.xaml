@@ -6,7 +6,7 @@
     <TabControl Name="tabControl1">
       <TabItem Header="Employees" Name="employees">
         <Grid>
-         <ListBox HorizontalAlignment="Left" Margin="6,6,0,0" Name="listBox1" Width="271" Height="378"/>
+         <ListBox HorizontalAlignment="Left" Margin="6,6,0,0" Name="lbEmployees" Width="271" Height="378"/>
           <GroupBox Header="Add Employee" Height="175" Margin="283,6,6,0" Name="groupBox1" VerticalAlignment="Top">
             <Grid ClipToBounds="True">
               <Label Content="Surname" Height="28" HorizontalAlignment="Left" Margin="6,6,0,0" Name="label1" VerticalAlignment="Top" />
@@ -17,7 +17,7 @@
               <RadioButton Content="male" Height="16" HorizontalAlignment="Left" Margin="79,69,0,0" Name="rbGenderMale" VerticalAlignment="Top" />
               <RadioButton Content="female" Height="16" HorizontalAlignment="Left" Margin="123,69,0,0" Name="rbGenderFemale" VerticalAlignment="Top" />
               <Label Content="Department" Height="28" HorizontalAlignment="Left" Margin="6,89,0,0" Name="label4" VerticalAlignment="Top" />
-              <Button Content="Save" Margin="6,119,6,0" Name="btnSaveEmployee" Width="255" Height="29" VerticalAlignment="Top" />
+              <Button Content="Save" Margin="6,119,6,0" Name="btnSaveEmployee" Width="255" Height="29" VerticalAlignment="Top" Click="btnSaveEmployee_Click" />
               <ComboBox Height="23" Margin="79,90,6,0" Name="cbDepartment" VerticalAlignment="Top" />
             </Grid>
           </GroupBox>
