@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AS_Projekt.interfaces;
+using AS_Projekt.db;
+using AS_Projekt.xml;
+using AS_Projekt.services;
 
 namespace AS_Projekt
 {
@@ -14,21 +18,23 @@ namespace AS_Projekt
     [System.Diagnostics.DebuggerNonUserCodeAttribute()]
     public static void Main()
     {
+      IService service = new BusinessLogic(new Database());
+      //IService service = new BusinessLogic(new xmlStorage());
+      
       //DB oder XML
       //Startet Konsolenanwendung
-      //RunConsole();
+      RunConsole(service);
       //Startet WPF-Dreck
-      RunWPF();
+      //RunWPF();
          
     }
 
-    private static void RunConsole()
+    private static void RunConsole(IService service)
     {
-        ShellOutput sh = new ShellOutput();
-         
+        new ShellOutput(service);
     }
 
-    private static void RunWPF()
+    private static void RunWPF(IService service)
     {
       AS_Projekt.App app = new AS_Projekt.App();
       app.InitializeComponent();

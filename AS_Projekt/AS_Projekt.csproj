@@ -79,10 +79,10 @@
     </ApplicationDefinition>
     <Compile Include="ConsoleManager.cs" />
     <Compile Include="CustomMain.cs" />
+    <Compile Include="interfaces\IService.cs" />
     <Compile Include="interfaces\IStore.cs" />
-    <Compile Include="services\Bll.cs" />
+    <Compile Include="services\BusinessLogic.cs" />
     <Compile Include="ShellOutput.cs" />
-    <Compile Include="StoreFactory.cs" />
     <Compile Include="xml\xmlStorage.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
