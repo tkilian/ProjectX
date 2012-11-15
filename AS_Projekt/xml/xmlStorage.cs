@@ -147,9 +147,14 @@ namespace AS_Projekt.xml
             {
                 if (Convert.ToInt32(employee.Attributes["Department"].InnerText) == id)
                 {
+
+                    Employee emp = new Employee(employee.Attributes["Firstname"].InnerText,employee.Attributes["Lastname"].InnerText,  (EmployeeGender)Convert.ToInt32(employee.Attributes["Gender"].InnerText), getDepartmentById(Convert.ToInt32(employee.Attributes["Id"].InnerText)));
+                    emp.Department = null;
+                    updateEmployee(emp);
+                    /*
                     employee.Attributes["Department"].InnerText = null; 
                     employeesDoc.Save(@"..\\..\\data\\xml\\employees.xml");
-                    
+                    */
                 }
             }
      
