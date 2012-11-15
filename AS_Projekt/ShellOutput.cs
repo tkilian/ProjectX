@@ -190,7 +190,7 @@ namespace AS_Projekt
         {
 
             int selectionIntGender;
-            Console.WriteLine("Input firstname:");     
+            Console.WriteLine("Input firstname:");
             string firstname = Console.ReadLine();
             Console.WriteLine("Input lastname:");
             string lastname = Console.ReadLine();
@@ -217,7 +217,7 @@ namespace AS_Projekt
                     Console.WriteLine("Choose gender: {0} = Male | {1} = Female", (int)EmployeeGender.Male, (int)EmployeeGender.Female);
                 }
             } while (!successGender);
- 
+
             Console.WriteLine("Input department or create a new one:");
             List<Department> listDeps = store.getAllDepartments();
 
@@ -227,29 +227,21 @@ namespace AS_Projekt
             if (listDeps.Count == 0)
                 Console.WriteLine("No Departmens found - Create a new one!");
 
-            string selDepID = Console.ReadLine();
-            int intselID;
-            bool successDepID = int.TryParse(selDepID, out intselID);
+            string selDepID ="";
+            do
+            {
+                Console.WriteLine("Department name");
+                selDepID = Console.ReadLine();
+
+            } while (selDepID != null);
 
             Department result = null;
-            if( successDepID ) 
-            {
-                foreach (Department d_temp in listDeps)
-                {
-                    if (d_temp.Id == intselID)
-                    {
-                        result = d_temp;
-                        break;
-                    }
-                }
-            }
-            else 
-                result = new Department(selDepID);
+            result = new Department(selDepID);
 
             Employee emp = new Employee(0, firstname, lastname, (EmployeeGender)selectionIntGender, result);
             store.insertEmployee(emp);
             Console.WriteLine("Employee insertet");
-            
+
             Console.WriteLine("Press Enter to go back to mainmenu");
             Console.ReadLine();
             Console.Clear();

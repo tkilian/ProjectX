@@ -166,7 +166,7 @@ namespace AS_Projekt.db
 
                 connection.Open();
 
-                command.CommandText = "SELECT * FROM `employees` e LEFT OUTER JOIN `departments` d ON e.fk_department_nr = d.id WHERE e.id = @id";
+                command.CommandText = "SELECT * FROM `employees` e LEFT OUTER JOIN `departments` d ON e.fk_department_nr IS NOT NULL AND e.fk_department_nr = d.id WHERE e.id = @id";
                 command.Prepare();
 
                 command.Parameters.AddWithValue("@id", id);

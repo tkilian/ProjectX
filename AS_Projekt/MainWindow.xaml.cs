@@ -44,9 +44,9 @@ namespace AS_Projekt
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            List<Department> dept = bll.getDepartments();
+            //List<Department> dept = bll.getDepartments();
 
-            lbEmployees.ItemsSource = dept;
+            //lbEmployees.ItemsSource = dept;
         }
 
         private void btnSaveEmployee_Click(object sender, RoutedEventArgs e)
@@ -54,8 +54,8 @@ namespace AS_Projekt
             /*
              , bll.getDepartmentById(cbDepartment.SelectedIndex)
              */
-            Employee employee = new Employee(tbFirstname, tbSurname, (EmployeeGender)rbGenderMale);
-            bll.insertEmployee(employee)
+            //Employee employee = new Employee(tbFirstname, tbSurname, (EmployeeGender)rbGenderMale);
+            //bll.insertEmployee(employee);
         }
     }
 }
