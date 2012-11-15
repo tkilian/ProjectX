@@ -48,12 +48,13 @@ namespace AS_Projekt.xml
           XmlAttribute empLastname = employeesDoc.CreateAttribute("Lastname");
           empLastname.Value = employee.Lastname;
           XmlAttribute empGender = employeesDoc.CreateAttribute("Gender");
-          empGender.Value = Convert.ToString(employee.Gender);
+          empGender.Value = ((int) employee.Gender).ToString();
           XmlAttribute empDepartment = employeesDoc.CreateAttribute("Department");
           empDepartment.Value = Convert.ToString(employee.Department.Id);
           emp.Attributes.Append(empId);
           emp.Attributes.Append(empFirstname);
-          emp.Attributes.Append(empLastname); 
+          emp.Attributes.Append(empLastname);
+          emp.Attributes.Append(empGender);
           emp.Attributes.Append(empDepartment);
           employeesRoot.AppendChild(emp);
           employeesDoc.Save(@"..\\..\\data\\xml\\employees.xml");
