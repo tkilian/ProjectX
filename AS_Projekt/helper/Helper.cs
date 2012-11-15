@@ -11,7 +11,11 @@ namespace AS_Projekt.helper
     {
         public static Employee CreateEmployee(int id, String firstname, String lastname, int gender, Int32 department_id, String department_name)
         {
-            Department employeeDepartment = new Department(department_id, department_name);
+            Department employeeDepartment = null;
+            if (department_id != 0)
+            {
+                employeeDepartment = new Department(department_id, department_name);
+            }
             return new Employee(id, firstname, lastname, (EmployeeGender)gender, employeeDepartment);
         }
 

@@ -7,13 +7,13 @@ using AS_Projekt.interfaces;
 
 namespace AS_Projekt.services
 {
-  class Bll
+  class BusinessLogic : IService
   {
     private IStore store;
 
-    public Bll(IStore store)
+    public BusinessLogic(IStore store)
     {
-        this.store = store;
+      this.store = store;
     }
 
     public bool insertDepartment(Department department)
@@ -21,9 +21,9 @@ namespace AS_Projekt.services
       return store.insertDepartment(department);
     }
 
-    public bool deleteDepartment(Department department)
+    public bool deleteDepartment(int id)
     {
-      return store.deleteDepartmentById(department.Id);
+      return store.deleteDepartmentById(id);
     }
 
     public bool updateDepartment(Department department)
@@ -31,7 +31,7 @@ namespace AS_Projekt.services
       return store.updateDepartment(department);
     }
 
-    public Department getDepartmentById(int id)
+    public Department getDepartment(int id)
     {
       return store.getDepartmentById(id);
     }
@@ -46,9 +46,9 @@ namespace AS_Projekt.services
       return store.insertEmployee(employee);
     }
 
-    public bool deleteEmployee(Employee employee)
+    public bool deleteEmployee(int id)
     {
-      return store.deleteEmployeeById(employee.Id);
+      return store.deleteEmployeeById(id);
     }
 
     public bool updateEmployee(Employee employee)
@@ -56,7 +56,7 @@ namespace AS_Projekt.services
       return store.updateEmployee(employee);
     }
 
-    public Employee getEmployeeById(int id)
+    public Employee getEmployee(int id)
     {
       return store.getEmployeeById(id);
     }

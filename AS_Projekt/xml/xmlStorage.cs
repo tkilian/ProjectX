@@ -23,7 +23,7 @@ namespace AS_Projekt.xml
 
         private void setup()
         {
-          departmentsDoc.Load(@"..\\..\\data\\xml\\departments.xml");
+            departmentsDoc.Load(@"..\\..\\data\\xml\\departments.xml");
             departmentsRoot = departmentsDoc.DocumentElement;
             employeesDoc.Load(@"..\\..\\data\\xml\\employees.xml");
             employeesRoot = employeesDoc.DocumentElement;          
@@ -96,7 +96,7 @@ namespace AS_Projekt.xml
             foreach (XmlNode employee in employeesRoot.ChildNodes) 
             {
                 
-              employees.Add(new Employee(employee.Attributes["Firstname"].InnerText,employee.Attributes["Lastname"].InnerText,  (EmployeeGender)Convert.ToInt32(employee.Attributes["Gender"].InnerText), getDepartmentById(Convert.ToInt32(employee.Attributes["Id"].InnerText))));
+              employees.Add(new Employee(employee.Attributes["Firstname"].InnerText,employee.Attributes["Lastname"].InnerText,  (EmployeeGender)Convert.ToInt32(employee.Attributes["Gender"].InnerText), getDepartmentById(Convert.ToInt32(employee.Attributes["Department"].InnerText))));
               
             }
 

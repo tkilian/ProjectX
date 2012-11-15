@@ -166,7 +166,7 @@ namespace AS_Projekt.db
 
                 connection.Open();
 
-                command.CommandText = "SELECT * FROM `employees` e LEFT OUTER JOIN `departments` d ON e.fk_department_nr = d.id WHERE e.id = @id";
+                command.CommandText = "SELECT * FROM `employees` e LEFT OUTER JOIN `departments` d ON e.fk_department_nr IS NOT NULL AND e.fk_department_nr = d.id WHERE e.id = @id";
                 command.Prepare();
 
                 command.Parameters.AddWithValue("@id", id);
@@ -177,7 +177,9 @@ namespace AS_Projekt.db
                 {
                     while (reader.Read())
                     {
-                        employee = Helper.CreateEmployee(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(3), reader.GetInt32(4), reader.GetString(6));
+                        Int32 departmentId = !reader.IsDBNull(4) ? reader.GetInt32(4) : 0;
+                        String departmentName = !reader.IsDBNull(6) ? reader.GetString(6) : "";
+                        employee = Helper.CreateEmployee(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(3), departmentId, departmentName);
                     }
 
                 }
