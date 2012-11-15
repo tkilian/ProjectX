@@ -37,12 +37,12 @@ namespace AS_Projekt.xml
 
           {
             if (Convert.ToInt32(emp2.Attributes["Id"].InnerText) > Id)
-                Id = Convert.ToInt32(emp2.Attributes["Id"].InnerText);
+                Id = Convert.ToInt32(emp2.Attributes["Id"].InnerText) ;
          }
-            
+          
           XmlNode emp = employeesDoc.CreateElement("employee");
           XmlAttribute empId = employeesDoc.CreateAttribute("Id");
-          empId.Value = Convert.ToString(Id);
+          empId.Value = Convert.ToString(Id +1);
           XmlAttribute empFirstname = employeesDoc.CreateAttribute("Firstname");
           empFirstname.Value = employee.Firstname;
           XmlAttribute empLastname = employeesDoc.CreateAttribute("Lastname");
@@ -119,12 +119,12 @@ namespace AS_Projekt.xml
                 foreach (XmlNode dep2 in departmentsRoot.ChildNodes)
                 {
                     if (Convert.ToInt32(dep2.Attributes["Id"].InnerText) > Id)
-                        Id = Convert.ToInt32(dep2.Attributes["Id"].InnerText);
+                        Id = Convert.ToInt32(dep2.Attributes["Id"].InnerText) ;
                 }
            
                 XmlNode dep = departmentsDoc.CreateElement("department");
                 XmlAttribute depId = departmentsDoc.CreateAttribute("Id");
-                depId.Value = Convert.ToString(Id);
+                depId.Value = Convert.ToString(Id+1);
                 XmlAttribute depName = departmentsDoc.CreateAttribute("Name");
                 depName.Value= department.Name;
                 dep.Attributes.Append(depId);
