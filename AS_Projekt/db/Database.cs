@@ -59,6 +59,7 @@ namespace AS_Projekt.db
                 connection.Close();
             }
         }
+
         public bool insertEmployee(Employee employee) 
         {
             SQLiteConnection connection = DbConnection;
@@ -76,9 +77,13 @@ namespace AS_Projekt.db
                 command.Parameters.AddWithValue("@gender", employee.Gender);
                 command.Parameters.AddWithValue("@department", employee.Department.Id);
 
-                employee.Id = 500;
-
                 command.ExecuteNonQuery();
+
+                // update the new id
+                command.CommandText = @"SELECT last_insert_rowid()";
+                SQLiteDataReader reader = command.ExecuteReader();
+                reader.Read();
+                employee.Id = reader.GetInt32(0);
             }
             catch (Exception e)
             {
