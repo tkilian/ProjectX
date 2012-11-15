@@ -18,16 +18,20 @@ namespace AS_Projekt
     {
 
         private IService service;
+        private Dictionary<int, Department> allDepartments;
 
-        public MainWindow()
+        public MainWindow(IService service)
         {
-            InitializeComponent();
+        	InitializeComponent();
+        	this.service = service;
+            allDepartments = new Dictionary<int, Department>();
         }
 
         public void InitializeService(IService service)
         {
             this.service = service;
         }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this.loadList();
@@ -40,7 +44,7 @@ namespace AS_Projekt
             {
                 gender = 0;
             }
-            Console.WriteLine(rbGenderFemale.IsChecked + " " + rbGenderMale.IsChecked);
+
             Department result = new Department(Convert.ToString(cbDepartment.SelectedIndex));
             Employee emp = new Employee(tbFirstname.Text, tbSurname.Text, (EmployeeGender)gender, result);
             service.insertEmployee(emp);
@@ -69,10 +73,10 @@ namespace AS_Projekt
 
                 lbEmployees.Items.Clear();
                 List<Employee> listEmpl = service.getEmployees();
+                lbEmployees.ItemsSource = listEmpl;
 
-
-                foreach (Employee d_temp in listEmpl)
-                    lbEmployees.Items.Add(d_temp.Lastname + ", " + d_temp.Firstname + " \n   Gender: " + (d_temp.Gender == (EmployeeGender)1 ? "male" : "female" ) + " \n   Department: " + d_temp.Department + " \n   ID: " + d_temp.Id);
+                //foreach (Employee d_temp in listEmpl)
+                  //  lbEmployees.Items.Add(d_temp.Lastname + ", " + d_temp.Firstname + " \n   Gender: " + (d_temp.Gender == (EmployeeGender)1 ? "male" : "female" ) + " \n   Department: " + d_temp.Department + " \n   ID: " + d_temp.Id);
             }
             catch (Exception e)
             {
@@ -82,12 +86,14 @@ namespace AS_Projekt
 
         private void deleteEmployee_Click(object sender, RoutedEventArgs e)
         {
-            service.deleteEmployee(lbEmployees.SelectedIndex);
+            Employee employee = (Employee)lbEmployees.Items.GetItemAt(lbEmployees.SelectedIndex);
+            service.deleteEmployee(employee.Id);
         }
 
         private void deleteDepartment_Click(object sender, RoutedEventArgs e)
         {
-            service.deleteDepartment(lbEmployees.SelectedIndex);
+            Department department = (Department)lbDepartments.Items.GetItemAt(lbDepartments.SelectedIndex);
+            service.deleteDepartment(department.Id);
         }
     }
 }

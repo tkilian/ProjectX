@@ -37,23 +37,24 @@ namespace AS_Projekt.xml
 
           {
             if (Convert.ToInt32(emp2.Attributes["Id"].InnerText) > Id)
-                Id = Convert.ToInt32(emp2.Attributes["Id"].InnerText);
+                Id = Convert.ToInt32(emp2.Attributes["Id"].InnerText) ;
          }
-            
+          
           XmlNode emp = employeesDoc.CreateElement("employee");
           XmlAttribute empId = employeesDoc.CreateAttribute("Id");
-          empId.Value = Convert.ToString(Id);
+          empId.Value = Convert.ToString(Id +1);
           XmlAttribute empFirstname = employeesDoc.CreateAttribute("Firstname");
           empFirstname.Value = employee.Firstname;
           XmlAttribute empLastname = employeesDoc.CreateAttribute("Lastname");
           empLastname.Value = employee.Lastname;
           XmlAttribute empGender = employeesDoc.CreateAttribute("Gender");
-          empGender.Value = Convert.ToString(employee.Gender);
+          empGender.Value = ((int) employee.Gender).ToString();
           XmlAttribute empDepartment = employeesDoc.CreateAttribute("Department");
           empDepartment.Value = Convert.ToString(employee.Department.Id);
           emp.Attributes.Append(empId);
           emp.Attributes.Append(empFirstname);
-          emp.Attributes.Append(empLastname); 
+          emp.Attributes.Append(empLastname);
+          emp.Attributes.Append(empGender);
           emp.Attributes.Append(empDepartment);
           employeesRoot.AppendChild(emp);
           employeesDoc.Save(@"..\\..\\data\\xml\\employees.xml");
@@ -104,7 +105,7 @@ namespace AS_Projekt.xml
             foreach (XmlNode employee in employeesRoot.ChildNodes) 
             {
                 
-              employees.Add(new Employee(employee.Attributes["Firstname"].InnerText,employee.Attributes["Lastname"].InnerText,  (EmployeeGender)Convert.ToInt32(employee.Attributes["Gender"].InnerText), getDepartmentById(Convert.ToInt32(employee.Attributes["Department"].InnerText))));
+              employees.Add(new Employee(Convert.ToInt32(employee.Attributes["Id"].InnerText), employee.Attributes["Firstname"].InnerText,employee.Attributes["Lastname"].InnerText,  (EmployeeGender)Convert.ToInt32(employee.Attributes["Gender"].InnerText), getDepartmentById(Convert.ToInt32(employee.Attributes["Department"].InnerText))));
               
             }
 
@@ -118,12 +119,12 @@ namespace AS_Projekt.xml
                 foreach (XmlNode dep2 in departmentsRoot.ChildNodes)
                 {
                     if (Convert.ToInt32(dep2.Attributes["Id"].InnerText) > Id)
-                        Id = Convert.ToInt32(dep2.Attributes["Id"].InnerText);
+                        Id = Convert.ToInt32(dep2.Attributes["Id"].InnerText) ;
                 }
            
                 XmlNode dep = departmentsDoc.CreateElement("department");
                 XmlAttribute depId = departmentsDoc.CreateAttribute("Id");
-                depId.Value = Convert.ToString(Id);
+                depId.Value = Convert.ToString(Id+1);
                 XmlAttribute depName = departmentsDoc.CreateAttribute("Name");
                 depName.Value= department.Name;
                 dep.Attributes.Append(depId);
