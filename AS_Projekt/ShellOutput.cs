@@ -4,20 +4,19 @@ using System.Linq;
 using System.Text;
 using AS_Projekt.interfaces;
 using as_projekt.data;
-using AS_Projekt.services;
 
 namespace AS_Projekt
 {
     class ShellOutput
     {
         int selectionInt = 0;
-        IStore store;
+        IService service;
         // Constructor
-        public ShellOutput()
+        public ShellOutput(IService service)
         {
             //Init
-            //store = StoreFactory.CreateStore("MSSQL");
-            store = StoreFactory.CreateStore("SQL");
+            this.service = service;
+            
             ConsoleManager.ConsoleManage.Show();
             Console.WriteLine("### Employee / Department - Managementsystem ###");
             InitSelection();
@@ -95,7 +94,7 @@ namespace AS_Projekt
 
         private void ShowAllDep()
         {
-            List<Department> listDeps = store.getAllDepartments();
+            List<Department> listDeps = service.getDepartments();
 
             foreach (Department d_temp in listDeps)
                 Console.WriteLine("ID: " + d_temp.Id + " Name: " + d_temp.Name);
@@ -107,7 +106,7 @@ namespace AS_Projekt
 
         private void ShowAllEmp()
         {
-            List<Employee> listEmpl = store.getAllEmployees();
+            List<Employee> listEmpl = service.getEmployees();
 
             foreach (Employee d_temp in listEmpl)
                 Console.WriteLine("ID: " + d_temp.Id + " Lastname: " + d_temp.Lastname + " Firstname: " +d_temp.Firstname + " Department: "  + d_temp.Department);
@@ -120,7 +119,7 @@ namespace AS_Projekt
         private void DelDep()
         {
             Console.WriteLine("Which Department do u want to delete?");
-            List<Department> listDeps = store.getAllDepartments();
+            List<Department> listDeps = service.getDepartments();
 
             foreach (Department d_temp in listDeps)
                 Console.WriteLine(d_temp.Id + " -> " + d_temp.Name);
@@ -128,7 +127,7 @@ namespace AS_Projekt
             string selDepID = Console.ReadLine();
             int intselID;
             bool successDepID = int.TryParse(selDepID, out intselID);          
-            store.deleteDepartmentById(intselID);
+            service.deleteDepartment(intselID);
             Console.WriteLine("Department deleted");
             Console.WriteLine("Press Enter to go back to mainmenu");
             Console.ReadLine();
@@ -138,14 +137,14 @@ namespace AS_Projekt
         private void DelEmp()
         {
             Console.WriteLine("Which Employee do u want to delete? Kackn00b!");
-            List<Employee> listEmpl = store.getAllEmployees();
+            List<Employee> listEmpl = service.getEmployees();
             foreach (Employee d_temp in listEmpl)
                 Console.WriteLine(d_temp.Id + " -> " + d_temp.Lastname + " " + d_temp.Firstname);
 
             string selEmpID = Console.ReadLine();
             int intselID;
             bool successDepID = int.TryParse(selEmpID, out intselID);
-            store.deleteEmployeeById(intselID);
+            service.deleteEmployee(intselID);
             Console.WriteLine("Employee deleted");
             Console.WriteLine("Press Enter to go back to mainmenu");
             Console.ReadLine();
@@ -159,7 +158,7 @@ namespace AS_Projekt
             string selectionEmplIDString = Console.ReadLine();
             //try to parse string to int
             bool successEmplID = int.TryParse(selectionEmplIDString, out selEmplID);
-            Employee d_temp = store.getEmployeeById(selEmplID);
+            Employee d_temp = service.getEmployee(selEmplID);
             if( d_temp != null )
                 Console.WriteLine(d_temp.ToString());
             else
@@ -178,7 +177,7 @@ namespace AS_Projekt
             string selectionEmplIDString = Console.ReadLine();
             //try to parse string to int
             bool successEmplID = int.TryParse(selectionEmplIDString, out selDepID);
-            store.getDepartmentById(selDepID);
+            service.getDepartment(selDepID);
             
             Console.WriteLine("Press Enter to go back to mainmenu");
             Console.ReadLine();
@@ -213,13 +212,13 @@ namespace AS_Projekt
 
                 if (!successGender)
                 {
-                    Console.WriteLine("Invalid Inp-ut - try again");
+                    Console.WriteLine("Invalid Input - try again");
                     Console.WriteLine("Choose gender: {0} = Male | {1} = Female", (int)EmployeeGender.Male, (int)EmployeeGender.Female);
                 }
             } while (!successGender);
 
             Console.WriteLine("Input department or create a new one:");
-            List<Department> listDeps = store.getAllDepartments();
+            List<Department> listDeps = service.getDepartments();
 
             foreach (Department d_temp in listDeps)
                 Console.WriteLine(d_temp.Id + " -> " + d_temp.Name);
@@ -239,7 +238,7 @@ namespace AS_Projekt
             result = new Department(selDepID);
 
             Employee emp = new Employee(0, firstname, lastname, (EmployeeGender)selectionIntGender, result);
-            store.insertEmployee(emp);
+            service.insertEmployee(emp);
             Console.WriteLine("Employee insertet");
 
             Console.WriteLine("Press Enter to go back to mainmenu");
@@ -252,7 +251,7 @@ namespace AS_Projekt
             Console.WriteLine("Input departmentname");
             string depname = Console.ReadLine();
             Department dep = new Department(depname);
-            store.insertDepartment(dep);
+            service.insertDepartment(dep);
             Console.WriteLine("Department inserted");
 
             Console.WriteLine("Press Enter to go back to mainmenu");
