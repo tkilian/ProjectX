@@ -23,7 +23,7 @@ namespace AS_Projekt.xml
 
         private void setup()
         {
-          departmentsDoc.Load(@"..\\..\\data\\xml\\departments.xml");
+            departmentsDoc.Load(@"..\\..\\data\\xml\\departments.xml");
             departmentsRoot = departmentsDoc.DocumentElement;
             employeesDoc.Load(@"..\\..\\data\\xml\\employees.xml");
             employeesRoot = employeesDoc.DocumentElement;          
