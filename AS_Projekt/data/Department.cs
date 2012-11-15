@@ -25,5 +25,9 @@ namespace as_projekt.data
     public bool IsNew() {
       return (Id == 0);
     }
+    public void setId(int id)
+    {
+        this.Id = id;
+    }
   }
 }
