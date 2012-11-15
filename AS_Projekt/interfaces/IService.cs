@@ -6,7 +6,7 @@ using as_projekt.data;
 
 namespace AS_Projekt.interfaces
 {
-	interface IService
+	public interface IService
 	{
 		bool insertDepartment(Department department);
 		bool deleteDepartment(int id);
