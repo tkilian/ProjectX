@@ -16,9 +16,9 @@ namespace AS_Projekt
     {
       //DB oder XML
       //Startet Konsolenanwendung
-      RunConsole();
+      //RunConsole();
       //Startet WPF-Dreck
-      //RunWPF();
+      RunWPF();
          
     }
 

@@ -13,7 +13,7 @@ namespace AS_Projekt.services
 
     public Bll(IStore store)
     {
-      this.store = store;
+        this.store = store;
     }
 
     public bool insertDepartment(Department department)
