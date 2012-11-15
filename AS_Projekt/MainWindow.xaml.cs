@@ -25,14 +25,11 @@ namespace AS_Projekt
         	this.service = service;
         }
 
-<<<<<<< HEAD
         public void InitializeService(IService service)
         {
             this.service = service;
         }
 
-=======
->>>>>>> f15ea9cbebdcfc744ba8f3705a299f6db7926a37
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this.loadList();
