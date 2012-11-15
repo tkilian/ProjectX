@@ -29,10 +29,12 @@ namespace AS_Projekt
                 Console.WriteLine("Please choose the task.");
                 Console.WriteLine("Get employee by ID = 1");
                 Console.WriteLine("Get department by ID = 2");
-                Console.WriteLine("Insert Employee = 3");
-                Console.WriteLine("Insert Department ID = 4");
-                Console.WriteLine("Delete Employee by ID = 5");
-                Console.WriteLine("Delete Department by ID = 6");
+                Console.WriteLine("Insert employee = 3");
+                Console.WriteLine("Insert department ID = 4");
+                Console.WriteLine("Delete employee by ID = 5");
+                Console.WriteLine("Delete department by ID = 6");
+                Console.WriteLine("Show all employees = 7");
+                Console.WriteLine("Show all departments = 8");
                 Console.WriteLine("Quit programm = 9");
                 string selectionString = Console.ReadLine();
                 //try to parse string to int
@@ -42,6 +44,7 @@ namespace AS_Projekt
                 {
                     case 1:
                         Console.WriteLine("You selected " + selectionString);
+                        Console.Clear();
                         GetEmplByID();
                         break;
                     case 2:
@@ -50,22 +53,34 @@ namespace AS_Projekt
                         break;
                     case 3:
                         Console.WriteLine("You selected " + selectionString);
+                        Console.Clear();
                         InsertEmpl();
                         break;
                     case 4:
                         Console.WriteLine("You selected " + selectionString);
+                        Console.Clear();
                         InsertDep();
                         break;
                     case 5:
                         Console.WriteLine("You selected " + selectionString);
+                        Console.Clear();
                         DelEmp();
                         break;
                     case 6:
                         Console.WriteLine("You selected " + selectionString);
+                        Console.Clear();
                         DelDep();
                         break;
-
-
+                    case 7:
+                        Console.WriteLine("You selected " + selectionString);
+                        Console.Clear();
+                        ShowAllEmp();
+                        break;
+                    case 8:
+                        Console.WriteLine("You selected " + selectionString);
+                        Console.Clear();
+                        ShowAllDep();
+                        break;
                     case 9:
                         Console.WriteLine("You selected " + selectionString + ". Shutting down ...");
                         System.Threading.Thread.Sleep(1000);
@@ -75,6 +90,22 @@ namespace AS_Projekt
                         break;
                 }
             } while (selectionInt != 5);
+        }
+
+        private void ShowAllDep()
+        {
+            List<Department> listDeps = store.getAllDepartments();
+
+            foreach (Department d_temp in listDeps)
+                Console.WriteLine("ID: " + d_temp.Id + " Name: " + d_temp.Name);
+        }
+
+        private void ShowAllEmp()
+        {
+            List<Employee> listEmpl = store.getAllEmployees();
+
+            foreach (Employee d_temp in listEmpl)
+                Console.WriteLine("ID: " + d_temp.Id + " Lastname: " + d_temp.Lastname + " Firstname: " +d_temp.Firstname + " Department: "  + d_temp.Department);
         }// end InitSelection
 
         private void DelDep()
