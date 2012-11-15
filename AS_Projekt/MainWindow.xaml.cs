@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,45 +16,78 @@ namespace AS_Projekt
     /// </summary>
     public partial class MainWindow : Window
     {
-        IStore store;
+
+        private IService service;
 
         public MainWindow()
         {
             InitializeComponent();
-
-            ////////////////////////////////////////////
-            /// Database Usage 
-            ////////////////////////////////////////////
-
-            // Database db = new Database();
-
-            // Department department = new Department(1, "Woot Inc");
-            // db.insertDepartment(department);
-            // db.deleteDepartmentById(1);
-            // db.updateDepartmentById(1);
-            // List<Department> departments = db.getAllDepartments();
-
-            // Employee employee = new Employee(2, "WAT WAT", "WAT", EmployeeGender.Male, department);
-            // db.insertEmployee(employee);
-            // db.deleteEmployeeById(1);
-            // db.updateEmployee(employee);
-            // List <Employee> employees = db.getAllEmployees();
         }
 
+        public void InitializeService(IService service)
+        {
+            this.service = service;
+        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //List<Department> dept = bll.getDepartments();
-
-            //lbEmployees.ItemsSource = dept;
+            this.loadList();
         }
 
         private void btnSaveEmployee_Click(object sender, RoutedEventArgs e)
         {
-            /*
-             , bll.getDepartmentById(cbDepartment.SelectedIndex)
-             */
-            //Employee employee = new Employee(tbFirstname, tbSurname, (EmployeeGender)rbGenderMale);
-            //bll.insertEmployee(employee);
+            int gender = 1;
+            if (rbGenderFemale.IsChecked == true)
+            {
+                gender = 0;
+            }
+            Console.WriteLine(rbGenderFemale.IsChecked + " " + rbGenderMale.IsChecked);
+            Department result = new Department(Convert.ToString(cbDepartment.SelectedIndex));
+            Employee emp = new Employee(tbFirstname.Text, tbSurname.Text, (EmployeeGender)gender, result);
+            service.insertEmployee(emp);
+
+            this.loadList();
+        }
+
+        private void btnSaveDepartment_Click(object sender, RoutedEventArgs e)
+        {
+            Department dep = new Department(tbDepartment.Text);
+            service.insertDepartment(dep);
+
+            this.loadList();
+        }
+
+        private void loadList()
+        {
+            try
+            {
+                lbDepartments.Items.Clear();
+                List<Department> listDeps = service.getDepartments();
+                lbDepartments.ItemsSource = listDeps;
+
+                cbDepartment.Items.Clear();
+                cbDepartment.ItemsSource = listDeps;
+
+                lbEmployees.Items.Clear();
+                List<Employee> listEmpl = service.getEmployees();
+
+
+                foreach (Employee d_temp in listEmpl)
+                    lbEmployees.Items.Add("ID: " + d_temp.Id + " Lastname: " + d_temp.Lastname + " Firstname: " + d_temp.Firstname + " Department: " + d_temp.Department);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
+
+        private void deleteEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            service.deleteEmployee(lbEmployees.SelectedIndex);
+        }
+
+        private void deleteDepartment_Click(object sender, RoutedEventArgs e)
+        {
+            service.deleteDepartment(lbEmployees.SelectedIndex);
         }
     }
 }

@@ -18,14 +18,14 @@ namespace AS_Projekt
     [System.Diagnostics.DebuggerNonUserCodeAttribute()]
     public static void Main()
     {
-      IService service = new BusinessLogic(new Database());
-      //IService service = new BusinessLogic(new xmlStorage());
+      //IService service = new BusinessLogic(new Database());
+      IService service = new BusinessLogic(new xmlStorage());
       
       //DB oder XML
       //Startet Konsolenanwendung
-      RunConsole(service);
+      //RunConsole(service);
       //Startet WPF-Dreck
-      //RunWPF();
+      RunWPF(service);
          
     }
 
