@@ -24,7 +24,6 @@ namespace as_projekt.data
       Department = department;
     }
 
-
     public Employee(String firstname, String lastname, EmployeeGender gender, Department department)
     {
       Id = 0;
@@ -39,5 +38,9 @@ namespace as_projekt.data
       return (Id == 0);
     }
 
+    public override string ToString()
+    {
+        return (Lastname + ", " + Firstname + " \n   Gender: " + (Gender == (EmployeeGender)1 ? "male" : "female") + " \n   Department: " + ((Department != null) ? Department.Name : "<mhm mh non nooo Senior Department no es here>") + " \n   ID: " + Id);
+    }
   }
 }

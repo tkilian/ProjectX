@@ -29,5 +29,10 @@ namespace as_projekt.data
     {
         this.Id = id;
     }
+
+    public override string ToString()
+    {
+        return (Name + " \n   ID: " + Id);
+    }
   }
 }

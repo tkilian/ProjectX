@@ -26,87 +26,90 @@ namespace AS_Projekt.xml
             departmentsDoc.Load(@"..\\..\\data\\xml\\departments.xml");
             departmentsRoot = departmentsDoc.DocumentElement;
             employeesDoc.Load(@"..\\..\\data\\xml\\employees.xml");
-            employeesRoot = employeesDoc.DocumentElement;          
+            employeesRoot = employeesDoc.DocumentElement;
         }
 
-        public bool insertEmployee(Employee employee) 
+        public bool insertEmployee(Employee employee)
         {
-          int Id = 0;
-          
-          foreach (XmlNode emp2 in employeesRoot.ChildNodes)
+            int Id = 0;
 
-          {
-            if (Convert.ToInt32(emp2.Attributes["Id"].InnerText) > Id)
-                Id = Convert.ToInt32(emp2.Attributes["Id"].InnerText) ;
-         }
-          
-          XmlNode emp = employeesDoc.CreateElement("employee");
-          XmlAttribute empId = employeesDoc.CreateAttribute("Id");
-          empId.Value = Convert.ToString(Id +1);
-          XmlAttribute empFirstname = employeesDoc.CreateAttribute("Firstname");
-          empFirstname.Value = employee.Firstname;
-          XmlAttribute empLastname = employeesDoc.CreateAttribute("Lastname");
-          empLastname.Value = employee.Lastname;
-          XmlAttribute empGender = employeesDoc.CreateAttribute("Gender");
-          empGender.Value = ((int) employee.Gender).ToString();
-          XmlAttribute empDepartment = employeesDoc.CreateAttribute("Department");
-          empDepartment.Value = Convert.ToString(employee.Department.Id);
-          emp.Attributes.Append(empId);
-          emp.Attributes.Append(empFirstname);
-          emp.Attributes.Append(empLastname);
-          emp.Attributes.Append(empGender);
-          emp.Attributes.Append(empDepartment);
-          employeesRoot.AppendChild(emp);
-          employeesDoc.Save(@"..\\..\\data\\xml\\employees.xml");
-
-          return true; 
-        }
-
-        public bool updateEmployee(Employee employee) 
-        {
-          deleteEmployeeById(employee.Id);
-          insertEmployee(employee);
-          return true;
-        }
-
-        public bool deleteEmployeeById(int id) 
-        {
-
-          
-          foreach (XmlNode employee in employeesRoot.ChildNodes)
-          {
-            if (Convert.ToInt32(employee.Attributes["Id"].InnerText) == id)
+            foreach (XmlNode emp2 in employeesRoot.ChildNodes)
             {
-              employeesRoot.RemoveChild(employee);
-              employeesDoc.Save(@"..\\..\\data\\xml\\employees.xml");
-              return true;
+                if (Convert.ToInt32(emp2.Attributes["Id"].InnerText) > Id)
+                    Id = Convert.ToInt32(emp2.Attributes["Id"].InnerText);
             }
-          }
-          return false;
-         
+
+            XmlNode emp = employeesDoc.CreateElement("employee");
+            XmlAttribute empId = employeesDoc.CreateAttribute("Id");
+            empId.Value = Convert.ToString(Id + 1);
+            XmlAttribute empFirstname = employeesDoc.CreateAttribute("Firstname");
+            empFirstname.Value = employee.Firstname;
+            XmlAttribute empLastname = employeesDoc.CreateAttribute("Lastname");
+            empLastname.Value = employee.Lastname;
+            XmlAttribute empGender = employeesDoc.CreateAttribute("Gender");
+            empGender.Value = ((int)employee.Gender).ToString();
+
+            int departmentId = employee.Department != null ? employee.Department.Id : 0;
+            XmlAttribute empDepartment = employeesDoc.CreateAttribute("Department");
+            empDepartment.Value = Convert.ToString(departmentId);
+
+            emp.Attributes.Append(empId);
+            emp.Attributes.Append(empFirstname);
+            emp.Attributes.Append(empLastname);
+            emp.Attributes.Append(empGender);
+            emp.Attributes.Append(empDepartment);
+            employeesRoot.AppendChild(emp);
+            employeesDoc.Save(@"..\\..\\data\\xml\\employees.xml");
+
+            return true;
+        }
+
+        public bool updateEmployee(Employee employee)
+        {
+            deleteEmployeeById(employee.Id);
+            insertEmployee(employee);
+            return true;
+        }
+
+        public bool deleteEmployeeById(int id)
+        {
+
+
+            foreach (XmlNode employee in employeesRoot.ChildNodes)
+            {
+                if (Convert.ToInt32(employee.Attributes["Id"].InnerText) == id)
+                {
+                    employeesRoot.RemoveChild(employee);
+                    employeesDoc.Save(@"..\\..\\data\\xml\\employees.xml");
+                    return true;
+                }
+            }
+            return false;
+
         }
 
 
-        public Employee getEmployeeById(int id) { 
+        public Employee getEmployeeById(int id)
+        {
 
-            Employee emp = new Employee (1, "a", "f", new EmployeeGender(), new Department("test"));
+            Employee emp = new Employee(1, "a", "f", new EmployeeGender(), new Department("test"));
             List<Employee> employees = getAllEmployees();
             foreach (Employee employee in employees)
             {
                 if (employee.Id == id)
                     emp = employee;
             }
-            
+
             return emp;
         }
         public List<Employee> getAllEmployees()
         {
             List<Employee> employees = new List<Employee>();
-            foreach (XmlNode employee in employeesRoot.ChildNodes) 
+            foreach (XmlNode employee in employeesRoot.ChildNodes)
             {
-                
-              employees.Add(new Employee(Convert.ToInt32(employee.Attributes["Id"].InnerText), employee.Attributes["Firstname"].InnerText,employee.Attributes["Lastname"].InnerText,  (EmployeeGender)Convert.ToInt32(employee.Attributes["Gender"].InnerText), getDepartmentById(Convert.ToInt32(employee.Attributes["Department"].InnerText))));
-              
+
+                employees.Add(new Employee(Convert.ToInt32(employee.Attributes["Id"].InnerText), employee.Attributes["Firstname"].InnerText, employee.Attributes["Lastname"].InnerText, (EmployeeGender)Convert.ToInt32(employee.Attributes["Gender"].InnerText), getDepartmentById(Convert.ToInt32(employee.Attributes["Department"].InnerText))));
+
             }
 
             return employees;
@@ -114,24 +117,24 @@ namespace AS_Projekt.xml
 
         public bool insertDepartment(Department department)
         {
-                 int Id = 0;
-                
-                foreach (XmlNode dep2 in departmentsRoot.ChildNodes)
-                {
-                    if (Convert.ToInt32(dep2.Attributes["Id"].InnerText) > Id)
-                        Id = Convert.ToInt32(dep2.Attributes["Id"].InnerText) ;
-                }
-           
-                XmlNode dep = departmentsDoc.CreateElement("department");
-                XmlAttribute depId = departmentsDoc.CreateAttribute("Id");
-                depId.Value = Convert.ToString(Id+1);
-                XmlAttribute depName = departmentsDoc.CreateAttribute("Name");
-                depName.Value= department.Name;
-                dep.Attributes.Append(depId);
-                dep.Attributes.Append(depName);
-                departmentsRoot.AppendChild(dep);
-                departmentsDoc.Save(@"..\\..\\data\\xml\\departments.xml");
-                return true;
+            int Id = 0;
+
+            foreach (XmlNode dep2 in departmentsRoot.ChildNodes)
+            {
+                if (Convert.ToInt32(dep2.Attributes["Id"].InnerText) > Id)
+                    Id = Convert.ToInt32(dep2.Attributes["Id"].InnerText);
+            }
+
+            XmlNode dep = departmentsDoc.CreateElement("department");
+            XmlAttribute depId = departmentsDoc.CreateAttribute("Id");
+            depId.Value = Convert.ToString(Id + 1);
+            XmlAttribute depName = departmentsDoc.CreateAttribute("Name");
+            depName.Value = department.Name;
+            dep.Attributes.Append(depId);
+            dep.Attributes.Append(depName);
+            departmentsRoot.AppendChild(dep);
+            departmentsDoc.Save(@"..\\..\\data\\xml\\departments.xml");
+            return true;
         }
 
         public bool updateDepartment(Department department)
@@ -140,19 +143,19 @@ namespace AS_Projekt.xml
             deleteDepartmentById(department.Id);
             insertDepartment(department);
 
-          /*
-            foreach (XmlNode dep in departmentsRoot.ChildNodes)
-            {
-                if (Convert.ToInt32(dep.Attributes["Id"].InnerText) == department.Id)
-                {
-                    dep.Attributes["Name"].InnerText = department.Name;
+            /*
+              foreach (XmlNode dep in departmentsRoot.ChildNodes)
+              {
+                  if (Convert.ToInt32(dep.Attributes["Id"].InnerText) == department.Id)
+                  {
+                      dep.Attributes["Name"].InnerText = department.Name;
                   
-                    departmentsDoc.Save(@"..\\..\\data\\xml\\departments.xml");
-                    return true;
-                }
-            }
-            return false;
-           * */
+                      departmentsDoc.Save(@"..\\..\\data\\xml\\departments.xml");
+                      return true;
+                  }
+              }
+              return false;
+             * */
             return true;
         }
 
@@ -164,7 +167,7 @@ namespace AS_Projekt.xml
                 if (Convert.ToInt32(employee.Attributes["Department"].InnerText) == id)
                 {
 
-                    Employee emp = new Employee(employee.Attributes["Firstname"].InnerText,employee.Attributes["Lastname"].InnerText,  (EmployeeGender)Convert.ToInt32(employee.Attributes["Gender"].InnerText), getDepartmentById(Convert.ToInt32(employee.Attributes["Id"].InnerText)));
+                    Employee emp = new Employee(employee.Attributes["Firstname"].InnerText, employee.Attributes["Lastname"].InnerText, (EmployeeGender)Convert.ToInt32(employee.Attributes["Gender"].InnerText), getDepartmentById(Convert.ToInt32(employee.Attributes["Id"].InnerText)));
                     emp.Department = null;
                     updateEmployee(emp);
                     /*
@@ -173,7 +176,7 @@ namespace AS_Projekt.xml
                     */
                 }
             }
-     
+
             foreach (XmlNode department in departmentsRoot.ChildNodes)
             {
                 if (Convert.ToInt32(department.Attributes["Id"].InnerText) == id)
@@ -183,7 +186,7 @@ namespace AS_Projekt.xml
                     return true;
                 }
             }
-           return false;
+            return false;
         }
 
         public Department getDepartmentById(int id)
@@ -200,16 +203,14 @@ namespace AS_Projekt.xml
 
         public List<Department> getAllDepartments()
         {
-            
+
             List<Department> departments = new List<Department>();
-            foreach (XmlNode department in departmentsRoot.ChildNodes) 
-            { 
-                departments.Add(new Department(Convert.ToInt32(department.Attributes["Id"].InnerText),department.Attributes["Name"].InnerText));
+            foreach (XmlNode department in departmentsRoot.ChildNodes)
+            {
+                departments.Add(new Department(Convert.ToInt32(department.Attributes["Id"].InnerText), department.Attributes["Name"].InnerText));
             }
             return departments;
         }
 
     }
 }
-
-
