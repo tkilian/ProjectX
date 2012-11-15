@@ -223,24 +223,36 @@ namespace AS_Projekt
             foreach (Department d_temp in listDeps)
                 Console.WriteLine(d_temp.Id + " -> " + d_temp.Name);
 
-            if (listDeps.Count == 0)
-                Console.WriteLine("No Departmens found - Create a new one!");
-
-            string selDepID ="";
-            do
-            {
-                Console.WriteLine("Department name");
-                selDepID = Console.ReadLine();
-
-            } while (selDepID != null);
-
             Department result = null;
-            result = new Department(selDepID);
+            if (listDeps.Count == 0)
+            {
+                Console.WriteLine("No Departmens found - Create a new one!");
+                string selDepID = "";
+                do
+                {
+                    Console.WriteLine("Department name");
+                    selDepID = Console.ReadLine();
 
+                } while (selDepID == null);
+
+                result = new Department(selDepID);
+                service.insertDepartment(result);
+                result = service.getDepartment(result.Id);
+                Console.WriteLine("Department inserted");
+            }
+            else
+            {
+                int selDepID;
+                Console.WriteLine("Input ID.");
+                string selectionEmplIDString = Console.ReadLine();
+                //try to parse string to int
+                bool successEmplID = int.TryParse(selectionEmplIDString, out selDepID);
+                result = service.getDepartment(selDepID);                
+            }
+            
             Employee emp = new Employee(0, firstname, lastname, (EmployeeGender)selectionIntGender, result);
             service.insertEmployee(emp);
-            Console.WriteLine("Employee insertet");
-
+            Console.WriteLine("Employee inserted");
             Console.WriteLine("Press Enter to go back to mainmenu");
             Console.ReadLine();
             Console.Clear();
