@@ -39,6 +39,8 @@ namespace AS_Projekt.xml
           empFirstname.Value = employee.Firstname;
           XmlAttribute empLastname = employeesDoc.CreateAttribute("Lastname");
           empLastname.Value = employee.Lastname;
+          XmlAttribute empGender = employeesDoc.CreateAttribute("Gender");
+          empGender.Value = Convert.ToString(employee.Gender);
           XmlAttribute empDepartment = employeesDoc.CreateAttribute("Department");
           empDepartment.Value = Convert.ToString(employee.Department.Id);
           emp.Attributes.Append(empId);
@@ -141,6 +143,16 @@ namespace AS_Projekt.xml
         public bool deleteDepartmentById(int id)
         {
             List<Department> departments = getAllDepartments();
+            foreach (XmlNode employee in employeesRoot.ChildNodes)
+            {
+                if (Convert.ToInt32(employee.Attributes["Department"].InnerText) == id)
+                {
+                    employee.Attributes["Department"].InnerText = null; 
+                    employeesDoc.Save(@"..\\..\\data\\xml\\employees.xml");
+                    
+                }
+            }
+     
             foreach (XmlNode department in departmentsRoot.ChildNodes)
             {
                 if (Convert.ToInt32(department.Attributes["Id"].InnerText) == id)

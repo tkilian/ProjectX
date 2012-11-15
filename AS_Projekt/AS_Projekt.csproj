@@ -83,7 +83,7 @@
     <Compile Include="services\Bll.cs" />
     <Compile Include="ShellOutput.cs" />
     <Compile Include="StoreFactory.cs" />
-    <Compile Include="xml\xml.cs" />
+    <Compile Include="xml\xmlStorage.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -126,9 +126,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="data\xml\departments.xml" />
+    <Resource Include="data\xml\employees.xml" />
     <Content Include="props\System.Data.SQLite.dll" />
-    <Resource Include="xml\departments.xml" />
-    <Resource Include="xml\employees.xml" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
