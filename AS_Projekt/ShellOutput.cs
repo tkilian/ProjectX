@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using AS_Projekt.interfaces;
 using as_projekt.data;
+using System.Text.RegularExpressions;
 
 namespace AS_Projekt
 {
@@ -130,6 +131,12 @@ namespace AS_Projekt
                 Console.WriteLine(d_temp.Id + " -> " + d_temp.Name);
 
             string selDepID = Console.ReadLine();
+            if (selDepID.Trim().Equals("") || !Regex.IsMatch(selDepID, "^\\d+$")) 
+            {
+                Console.WriteLine("Error, please enter a valid id");
+                DelDep();
+            }
+
             int intselID;
             bool successDepID = int.TryParse(selDepID, out intselID);          
             service.deleteDepartment(intselID);
@@ -147,6 +154,12 @@ namespace AS_Projekt
                 Console.WriteLine(d_temp.Id + " -> " + d_temp.Lastname + " " + d_temp.Firstname);
 
             string selEmpID = Console.ReadLine();
+            if (selEmpID.Trim().Equals("") || !Regex.IsMatch(selEmpID, "^\\d+$"))
+            {
+                Console.WriteLine("Error, please enter a valid id");
+                DelEmp();
+            }
+            
             int intselID;
             bool successDepID = int.TryParse(selEmpID, out intselID);
             service.deleteEmployee(intselID);
@@ -161,6 +174,13 @@ namespace AS_Projekt
             int selEmplID;
             Console.WriteLine("Input ID.");
             string selectionEmplIDString = Console.ReadLine();
+
+            if (selectionEmplIDString.Trim().Equals("") || !Regex.IsMatch(selectionEmplIDString, "^\\d+$"))
+            {
+                Console.WriteLine("Error, please enter a valid id");
+                GetDepByID();
+            }
+            
             //try to parse string to int
             bool successEmplID = int.TryParse(selectionEmplIDString, out selEmplID);
             Employee d_temp = service.getEmployee(selEmplID);
@@ -180,6 +200,13 @@ namespace AS_Projekt
             int selDepID;
             Console.WriteLine("Input ID.");
             string selectionEmplIDString = Console.ReadLine();
+
+            if (selectionEmplIDString.Trim().Equals("") || !Regex.IsMatch(selectionEmplIDString, "^\\d+$"))
+            {
+                Console.WriteLine("Error, please enter a valid id");
+                GetDepByID();
+            }
+
             //try to parse string to int
             bool successEmplID = int.TryParse(selectionEmplIDString, out selDepID);
             Department d_temp = service.getDepartment(selDepID);
@@ -200,8 +227,29 @@ namespace AS_Projekt
             int selectionIntGender;
             Console.WriteLine("Input firstname:");
             string firstname = Console.ReadLine();
-            Console.WriteLine("Input lastname:");
-            string lastname = Console.ReadLine();
+            if (firstname.Trim().Equals("") || !Regex.IsMatch(firstname, "^\\w[a-zA-Z\\s]+$"))
+            {
+                Console.WriteLine("Error, please enter a valid firstname");
+                InsertEmpl();
+            }
+
+            bool sacksession = true;
+            string lastname = "";
+
+            while (sacksession)
+            {
+                Console.WriteLine("Input lastname:");
+                lastname = Console.ReadLine();
+                if (lastname.Trim().Equals("") || !Regex.IsMatch(lastname, "^\\w[a-zA-Z\\s]+$"))
+                {
+                    Console.WriteLine("Error, please enter a valid lastname");
+                }
+                else
+                {
+                    sacksession = false;
+                }
+            }
+
             bool successGender = false;
             do
             {
@@ -241,7 +289,11 @@ namespace AS_Projekt
                 {
                     Console.WriteLine("Department name");
                     selDepID = Console.ReadLine();
-
+                    if (selDepID.Trim().Equals("") || !Regex.IsMatch(selDepID, "^\\w[a-zA-Z\\s]+$"))
+                    {
+                        Console.WriteLine("Please enter a valid department name");
+                        selDepID = null;
+                    }
                 } while (selDepID == null);
 
                 result = new Department(selDepID);
@@ -271,6 +323,11 @@ namespace AS_Projekt
         {
             Console.WriteLine("Input departmentname");
             string depname = Console.ReadLine();
+            if (depname.Trim().Equals("") || !Regex.IsMatch(depname, "^\\w[a-zA-Z\\s]+$"))
+            {
+                Console.WriteLine("Please enter a valid department name");
+                InsertDep();
+            }
             Department dep = new Department(depname);
             service.insertDepartment(dep);
             Console.WriteLine("Department inserted");

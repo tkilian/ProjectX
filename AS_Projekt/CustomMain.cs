@@ -23,9 +23,9 @@ namespace AS_Projekt
       
       //DB oder XML
       //Startet Konsolenanwendung
-      //RunConsole(service);
+      RunConsole(service);
       //Startet WPF-Dreck
-      RunWPF(service);
+      //RunWPF(service);
          
     }
 
