@@ -28,6 +28,7 @@ namespace AS_Projekt
         {
             this.service = service;
         }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this.loadList();
@@ -40,7 +41,7 @@ namespace AS_Projekt
             {
                 gender = 0;
             }
-            Console.WriteLine(rbGenderFemale.IsChecked + " " + rbGenderMale.IsChecked);
+
             Department result = new Department(Convert.ToString(cbDepartment.SelectedIndex));
             Employee emp = new Employee(tbFirstname.Text, tbSurname.Text, (EmployeeGender)gender, result);
             service.insertEmployee(emp);
