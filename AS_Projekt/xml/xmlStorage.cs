@@ -105,7 +105,7 @@ namespace AS_Projekt.xml
             foreach (XmlNode employee in employeesRoot.ChildNodes) 
             {
                 
-              employees.Add(new Employee(employee.Attributes["Firstname"].InnerText,employee.Attributes["Lastname"].InnerText,  (EmployeeGender)Convert.ToInt32(employee.Attributes["Gender"].InnerText), getDepartmentById(Convert.ToInt32(employee.Attributes["Department"].InnerText))));
+              employees.Add(new Employee(Convert.ToInt32(employee.Attributes["Id"].InnerText), employee.Attributes["Firstname"].InnerText,employee.Attributes["Lastname"].InnerText,  (EmployeeGender)Convert.ToInt32(employee.Attributes["Gender"].InnerText), getDepartmentById(Convert.ToInt32(employee.Attributes["Department"].InnerText))));
               
             }
 
