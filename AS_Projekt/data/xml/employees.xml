@@ -1,6 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <employees>
   <employee Id="2" Firstname="thorsten" Lastname="meier" Gender="1" Department="2" />
-  
-  <employee Id="1" Firstname="thorsten" Lastname="meier" Gender="1" Department="2"></employee>
 </employees>

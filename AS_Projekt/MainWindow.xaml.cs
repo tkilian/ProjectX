@@ -16,32 +16,18 @@ namespace AS_Projekt
     /// </summary>
     public partial class MainWindow : Window
     {
-        IStore store;
+
+        private IService service;
 
         public MainWindow()
         {
             InitializeComponent();
-            store = StoreFactory.CreateStore("XML");
-
-            ////////////////////////////////////////////
-            /// Database Usage 
-            ////////////////////////////////////////////
-
-            // Database db = new Database();
-
-            // Department department = new Department(1, "Woot Inc");
-            // db.insertDepartment(department);
-            // db.deleteDepartmentById(1);
-            // db.updateDepartmentById(1);
-            // List<Department> departments = db.getAllDepartments();
-
-            // Employee employee = new Employee(2, "WAT WAT", "WAT", EmployeeGender.Male, department);
-            // db.insertEmployee(employee);
-            // db.deleteEmployeeById(1);
-            // db.updateEmployee(employee);
-            // List <Employee> employees = db.getAllEmployees();
         }
 
+        public void InitializeService(IService service)
+        {
+            this.service = service;
+        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this.loadList();
@@ -56,8 +42,8 @@ namespace AS_Projekt
             }
             Console.WriteLine(rbGenderFemale.IsChecked + " " + rbGenderMale.IsChecked);
             Department result = new Department(Convert.ToString(cbDepartment.SelectedIndex));
-            Employee emp = new Employee(0, tbFirstname.Text, tbSurname.Text, (EmployeeGender)gender, result);
-            store.insertEmployee(emp);
+            Employee emp = new Employee(tbFirstname.Text, tbSurname.Text, (EmployeeGender)gender, result);
+            service.insertEmployee(emp);
 
             this.loadList();
         }
@@ -65,7 +51,7 @@ namespace AS_Projekt
         private void btnSaveDepartment_Click(object sender, RoutedEventArgs e)
         {
             Department dep = new Department(tbDepartment.Text);
-            store.insertDepartment(dep);
+            service.insertDepartment(dep);
 
             this.loadList();
         }
@@ -75,11 +61,14 @@ namespace AS_Projekt
             try
             {
                 lbDepartments.Items.Clear();
-                List<Department> listDeps = store.getAllDepartments();
+                List<Department> listDeps = service.getDepartments();
                 lbDepartments.ItemsSource = listDeps;
 
+                cbDepartment.Items.Clear();
+                cbDepartment.ItemsSource = listDeps;
+
                 lbEmployees.Items.Clear();
-                List<Employee> listEmpl = store.getAllEmployees();
+                List<Employee> listEmpl = service.getEmployees();
 
 
                 foreach (Employee d_temp in listEmpl)
@@ -89,6 +78,16 @@ namespace AS_Projekt
             {
                 Console.WriteLine(e);
             }
+        }
+
+        private void deleteEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            service.deleteEmployee(lbEmployees.SelectedIndex);
+        }
+
+        private void deleteDepartment_Click(object sender, RoutedEventArgs e)
+        {
+            service.deleteDepartment(lbEmployees.SelectedIndex);
         }
     }
 }
