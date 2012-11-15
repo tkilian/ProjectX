@@ -95,9 +95,11 @@ namespace AS_Projekt
         private void ShowAllDep()
         {
             List<Department> listDeps = service.getDepartments();
-
-            foreach (Department d_temp in listDeps)
-                Console.WriteLine("ID: " + d_temp.Id + " Name: " + d_temp.Name);
+            if(listDeps.Count == 0)
+                Console.WriteLine("No Departments found!");
+            else
+                foreach (Department d_temp in listDeps)
+                    Console.WriteLine("ID: " + d_temp.Id + " Name: " + d_temp.Name);
 
             Console.WriteLine("Press Enter to go back to mainmenu");
             Console.ReadLine();
@@ -107,9 +109,12 @@ namespace AS_Projekt
         private void ShowAllEmp()
         {
             List<Employee> listEmpl = service.getEmployees();
-
-            foreach (Employee d_temp in listEmpl)
-                Console.WriteLine("ID: " + d_temp.Id + " Lastname: " + d_temp.Lastname + " Firstname: " +d_temp.Firstname + " Department: "  + d_temp.Department);
+            
+            if (listEmpl.Count == 0)
+                Console.WriteLine("No Emloyees found!");
+            else
+                foreach (Employee d_temp in listEmpl)
+                    Console.WriteLine("ID: " + d_temp.Id + " Lastname: " + d_temp.Lastname + " Firstname: " +d_temp.Firstname + " Department: "  + d_temp.Department);
             
             Console.WriteLine("Press Enter to go back to mainmenu");
             Console.ReadLine();
@@ -136,7 +141,7 @@ namespace AS_Projekt
 
         private void DelEmp()
         {
-            Console.WriteLine("Which Employee do u want to delete? Kackn00b!");
+            Console.WriteLine("Which Employee do u want to delete?");
             List<Employee> listEmpl = service.getEmployees();
             foreach (Employee d_temp in listEmpl)
                 Console.WriteLine(d_temp.Id + " -> " + d_temp.Lastname + " " + d_temp.Firstname);
@@ -160,7 +165,7 @@ namespace AS_Projekt
             bool successEmplID = int.TryParse(selectionEmplIDString, out selEmplID);
             Employee d_temp = service.getEmployee(selEmplID);
             if( d_temp != null )
-                Console.WriteLine(d_temp.ToString());
+                Console.WriteLine(d_temp.Lastname + ", " + d_temp.Firstname + ", " + d_temp.Gender.ToString() + " -> " + d_temp.Department.Id);
             else
                 Console.WriteLine("Employee not found!");
             
@@ -177,7 +182,11 @@ namespace AS_Projekt
             string selectionEmplIDString = Console.ReadLine();
             //try to parse string to int
             bool successEmplID = int.TryParse(selectionEmplIDString, out selDepID);
-            service.getDepartment(selDepID);
+            Department d_temp = service.getDepartment(selDepID);
+            if (d_temp != null)
+                Console.WriteLine(d_temp.Id + ", " + d_temp.Name);
+            else
+                Console.WriteLine("Department not found!");
             
             Console.WriteLine("Press Enter to go back to mainmenu");
             Console.ReadLine();
@@ -201,8 +210,8 @@ namespace AS_Projekt
                 successGender = int.TryParse(selectionGender, out selectionIntGender);
                 switch (selectionIntGender)
                 {
-                    case 0:
-                    case 1:
+                    case ((int) EmployeeGender.Male):
+                    case ((int) EmployeeGender.Female):
                         successGender = successGender && true;
                         break;
                     default:
