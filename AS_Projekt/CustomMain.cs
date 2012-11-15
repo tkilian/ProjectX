@@ -37,8 +37,7 @@ namespace AS_Projekt
     private static void RunWPF(IService service)
     {
       AS_Projekt.App app = new AS_Projekt.App();
-      app.InitializeComponent();
-      app.Run();
+      app.Run(new MainWindow(service));
     }
   }
 }

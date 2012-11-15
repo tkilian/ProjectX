@@ -19,15 +19,12 @@ namespace AS_Projekt
 
         private IService service;
 
-        public MainWindow()
+        public MainWindow(IService service)
         {
-            InitializeComponent();
+        	InitializeComponent();
+        	this.service = service;
         }
 
-        public void InitializeService(IService service)
-        {
-            this.service = service;
-        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this.loadList();
