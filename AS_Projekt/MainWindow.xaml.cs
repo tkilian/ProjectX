@@ -57,6 +57,11 @@ namespace AS_Projekt
             {
                 result = (Department)cbDepartment.Items.GetItemAt(cbDepartment.SelectedIndex);
             }
+            else
+            {
+            	MessageBox.Show("Please enter Department");
+                return;
+            }
 
             Employee emp = new Employee(tbFirstname.Text, tbSurname.Text, (EmployeeGender)gender, result);
             service.insertEmployee(emp);
