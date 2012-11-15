@@ -31,10 +31,18 @@ namespace AS_Projekt.xml
 
         public bool insertEmployee(Employee employee) 
         {
+          int Id = 0;
+          
+          foreach (XmlNode emp2 in employeesRoot.ChildNodes)
 
+          {
+            if (Convert.ToInt32(emp2.Attributes["Id"].InnerText) > Id)
+                Id = Convert.ToInt32(emp2.Attributes["Id"].InnerText);
+         }
+            
           XmlNode emp = employeesDoc.CreateElement("employee");
           XmlAttribute empId = employeesDoc.CreateAttribute("Id");
-          empId.Value = Convert.ToString(employee.Id);
+          empId.Value = Convert.ToString(Id);
           XmlAttribute empFirstname = employeesDoc.CreateAttribute("Firstname");
           empFirstname.Value = employee.Firstname;
           XmlAttribute empLastname = employeesDoc.CreateAttribute("Lastname");
@@ -105,10 +113,17 @@ namespace AS_Projekt.xml
 
         public bool insertDepartment(Department department)
         {
+                 int Id = 0;
+                
+                foreach (XmlNode dep2 in departmentsRoot.ChildNodes)
+                {
+                    if (Convert.ToInt32(dep2.Attributes["Id"].InnerText) > Id)
+                        Id = Convert.ToInt32(dep2.Attributes["Id"].InnerText);
+                }
            
                 XmlNode dep = departmentsDoc.CreateElement("department");
                 XmlAttribute depId = departmentsDoc.CreateAttribute("Id");
-                depId.Value = Convert.ToString(department.Id);
+                depId.Value = Convert.ToString(Id);
                 XmlAttribute depName = departmentsDoc.CreateAttribute("Name");
                 depName.Value= department.Name;
                 dep.Attributes.Append(depId);
